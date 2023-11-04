@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.4.5
+  riverpod_annotation: ^2.3.0
+  objectbox: ^2.3.1
+  objectbox_flutter_libs: any
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +43,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  custom_lint:
+  riverpod_generator: ^2.3.5
+  riverpod_lint: ^2.3.3
+  objectbox_generator: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
