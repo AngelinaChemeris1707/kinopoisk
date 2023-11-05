@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kinopoisk_angelina/screens/detail_screen.dart';
+import 'package:kinopoisk_angelina/screens/main_screen.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,6 +15,7 @@ String helloWorld(HelloWorldRef ref) {
 }
 
 void main() {
+  // runApp(widget(child: Icon(Icons.abc_rounded)));
   runApp(
     // For widgets to be able to read providers, we need to wrap the entire
     // application in a "ProviderScope" widget.
@@ -30,12 +33,10 @@ class MyApp extends ConsumerWidget {
     final String value = ref.watch(helloWorldProvider);
 
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Example')),
-        body: Center(
-          child: Text(value),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
+          useMaterial3: true,
         ),
-      ),
-    );
+        home: const MainScreen());
   }
 }
