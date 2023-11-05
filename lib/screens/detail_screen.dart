@@ -16,8 +16,18 @@ class _DetailScreenState extends State<DetailScreen> {
           title: const Text('О фильме'),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           backgroundColor: Colors.brown),
-      body: const Column(
-        children: [],
+      body: const Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                  hintText: "Название фильма",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12)))),
+            )
+          ],
+        ),
       ),
     );
     floatingActionButton:

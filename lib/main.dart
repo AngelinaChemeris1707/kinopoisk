@@ -33,10 +33,11 @@ class MyApp extends ConsumerWidget {
     final String value = ref.watch(helloWorldProvider);
 
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
           useMaterial3: true,
         ),
-        home: const MainScreen());
+        home: const DetailScreen());
   }
 }
