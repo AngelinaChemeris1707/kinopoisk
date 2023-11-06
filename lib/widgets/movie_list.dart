@@ -4,7 +4,9 @@ import '../state/movie.dart';
 
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
-  const MovieList({super.key, required this.movies});
+  final Function(int) onMovieSelected;
+  const MovieList(
+      {super.key, required this.movies, required this.onMovieSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +25,13 @@ class MovieList extends StatelessWidget {
                 child: const Icon(Icons.delete_forever_rounded),
               ),
               key: ValueKey<int>(index),
-              child: MovieListItem(
-                movieTitle: movie.name,
-                movieDate: movie.year,
-                movieCountry: movie.country,
+              child: GestureDetector(
+                onTap: () => onMovieSelected(index),
+                child: MovieListItem(
+                  movieTitle: movie.name,
+                  movieDate: movie.year,
+                  movieCountry: movie.country,
+                ),
               ));
         });
   }

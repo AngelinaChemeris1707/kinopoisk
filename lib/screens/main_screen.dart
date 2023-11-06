@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kinopoisk_angelina/screens/detail_screen.dart';
 import 'package:kinopoisk_angelina/state/movie.dart';
 import 'package:kinopoisk_angelina/widgets/movie_list.dart';
 import '../state/movies_notifier.dart';
@@ -41,7 +42,14 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                   bottomLeft: Radius.circular(25),
                   bottomRight: Radius.circular(25))),
         ),
-        body: MovieList(movies: movies),
+        body: MovieList(
+          movies: movies,
+          onMovieSelected: (movieIndex) {
+            final movie = movies[movieIndex];
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => DetailScreen(movie: movie)));
+          },
+        ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               ref.read(moviesNotifierProvider.notifier).add(
@@ -84,7 +92,10 @@ class MySearchDelegate extends SearchDelegate {
     if (movies.isEmpty) {
       return const Center(child: Text("Ничего не найдено"));
     }
-    return MovieList(movies: notifier.movies);
+    return MovieList(
+      movies: notifier.movies,
+      onMovieSelected: (movieIndex) {},
+    );
   }
 
   @override

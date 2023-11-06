@@ -1,9 +1,11 @@
 import 'package:dropdownfield2/dropdownfield2.dart';
 import 'package:flutter/material.dart';
+import 'package:kinopoisk_angelina/state/movie.dart';
 import '../state/movies_notifier.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  final Movie? movie;
+  const DetailScreen({super.key, this.movie});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -17,7 +19,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: const Text('О фильме'),
+          title: Text('О фильме ${widget.movie?.name}'),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           backgroundColor: Colors.brown),
       body: Padding(
