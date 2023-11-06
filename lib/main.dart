@@ -5,14 +5,17 @@ import 'package:kinopoisk_angelina/screens/main_screen.dart';
 import 'package:objectbox/objectbox.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'main.g.dart';
+//part 'main.g.dart';
 
 // We create a "provider", which will store a value (here "Hello world").
 // By using a provider, this allows us to mock/override the value exposed.
-@riverpod
-String helloWorld(HelloWorldRef ref) {
-  return 'Hello world';
-}
+// @riverpod
+// class HelloWorldNotifier extends _$HelloWorldNotifier {
+//   @override
+//   Future<List<int>> build() async {
+//     return <int>[];
+//   }
+// }
 
 void main() {
   // runApp(widget(child: Icon(Icons.abc_rounded)));
@@ -30,7 +33,7 @@ void main() {
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(helloWorldProvider);
+    // final String value = ref.watch(helloWorldProvider);
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -38,6 +41,6 @@ class MyApp extends ConsumerWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown),
           useMaterial3: true,
         ),
-        home: const DetailScreen());
+        home: const MainScreen());
   }
 }
