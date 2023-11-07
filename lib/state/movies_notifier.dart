@@ -6,6 +6,7 @@ part 'movies_notifier.g.dart';
 @riverpod
 class MoviesNotifier extends _$MoviesNotifier {
   List<Movie> get movies => () {
+        //название геттера - это поле, которое он возвращает?
         if (_query == "") {
           return _movies;
         } else {
@@ -36,5 +37,12 @@ class MoviesNotifier extends _$MoviesNotifier {
 
   void remove({required int movieIndex}) {}
 
-  void replace({required int movieIndex, required Movie newMovie}) {}
+  void replace({required Movie oldMovie, required Movie newMovie}) {
+    final index = _movies.indexOf(oldMovie);
+    if (index == -1) {
+      return;
+    }
+    _movies[index] = newMovie;
+    ref.notifyListeners();
+  }
 }

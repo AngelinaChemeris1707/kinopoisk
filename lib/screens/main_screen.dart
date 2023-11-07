@@ -5,8 +5,8 @@ import 'package:kinopoisk_angelina/state/movie.dart';
 import 'package:kinopoisk_angelina/widgets/movie_list.dart';
 import '../state/movies_notifier.dart';
 
-const List<String> filmNames = <String>['Титаник', 'Девчата'];
-const List<int> filmYears = <int>[1999, 1954];
+// const List<String> filmNames = <String>['Титаник', 'Девчата'];
+// const List<int> filmYears = <int>[1999, 1954];
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -18,8 +18,9 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final movies = ref.watch(moviesNotifierProvider);
-    final notifier = ref.read(moviesNotifierProvider.notifier);
+    final movies = ref.watch(
+        moviesNotifierProvider); //Тут мы получаем список фильмов.Состояние - это и есть список фильмов.
+    final notifier = ref.read(moviesNotifierProvider.notifier); //
 
     return Scaffold(
         appBar: AppBar(
@@ -52,9 +53,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              ref.read(moviesNotifierProvider.notifier).add(
-                  movie: Movie(
-                      name: "Летят журавли", year: "1957", country: "СССР"));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DetailScreen(movie: null)));
             },
             label: const Text("Добавить фильм")));
   }
@@ -94,7 +94,7 @@ class MySearchDelegate extends SearchDelegate {
     }
     return MovieList(
       movies: notifier.movies,
-      onMovieSelected: (movieIndex) {},
+      onMovieSelected: (movieIndex) {}, // TODO: Дописать коллбек
     );
   }
 
