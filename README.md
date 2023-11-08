@@ -1,16 +1,19 @@
 # kinopoisk_angelina
 
-A new Flutter project.
+Тестовый проект. Реализован для Android. 
+Использованы пакеты: flutter_riverpod и objectbox.
 
-## Getting Started
+Пользовательские сценарии:
+1. Просмотр информации о фильме на отдельном экране.
+2. Редактирование информации о фильме на отдельном экране. Для сохранения изменений нажимаем кнопку в AppBar.
+3. Добавление нового фильма через кнопку "Добавить" на главном экране. Нажатие этой кнопки перебрасывает нас на отдельный экран с пустыми полями информации. Для сохранения новой информации нажимаем кнопку в AppBar.
+4. Удаление фильма на главном экране: свайп справа налево.
+5. Поиск фильма на главном экране. Нажатие на найденный фильм перебрасывает нас на отдельный экран с информацией о фильме. Пустой поиск возвращает весь список фильмов.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   
+![Screenshot_1699413608](https://github.com/AngelinaChemeris1707/kinopoisk/assets/124514018/ae86a727-fed8-4d77-a2fe-02197043a12c)
+![Screenshot_1699413600](https://github.com/AngelinaChemeris1707/kinopoisk/assets/124514018/ddfe11bb-43ce-4ad0-a03f-ab19c6e789d3)
+![Screenshot_1699413624](https://github.com/AngelinaChemeris1707/kinopoisk/assets/124514018/6e6fb86c-78b7-4173-a88e-68804d81b483)
