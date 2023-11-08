@@ -35,7 +35,14 @@ class MoviesNotifier extends _$MoviesNotifier {
     ref.notifyListeners();
   }
 
-  void remove({required int movieIndex}) {}
+  void remove({required Movie movie}) {
+    final movieIndex = _movies.indexOf(movie);
+    if (movieIndex == -1) {
+      return;
+    }
+    _movies.removeAt(movieIndex);
+    ref.notifyListeners();
+  }
 
   void replace({required Movie oldMovie, required Movie newMovie}) {
     final index = _movies.indexOf(oldMovie);

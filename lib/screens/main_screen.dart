@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kinopoisk_angelina/screens/detail_screen.dart';
-import 'package:kinopoisk_angelina/state/movie.dart';
 import 'package:kinopoisk_angelina/widgets/movie_list.dart';
 import '../state/movies_notifier.dart';
-
-// const List<String> filmNames = <String>['Титаник', 'Девчата'];
-// const List<int> filmYears = <int>[1999, 1954];
 
 class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
@@ -19,7 +15,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final movies = ref.watch(
-        moviesNotifierProvider); //Тут мы получаем список фильмов.Состояние - это и есть список фильмов.
+        moviesNotifierProvider); //Тут мы получаем список фильмов. Состояние - это и есть список фильмов.
     final notifier = ref.read(moviesNotifierProvider.notifier); //
 
     return Scaffold(
@@ -49,6 +45,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             final movie = movies[movieIndex];
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => DetailScreen(movie: movie)));
+          },
+          onMovieDeleted: (movie) {
+            notifier.remove(movie: movie);
           },
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -94,7 +93,14 @@ class MySearchDelegate extends SearchDelegate {
     }
     return MovieList(
       movies: notifier.movies,
-      onMovieSelected: (movieIndex) {}, // TODO: Дописать коллбек
+      onMovieSelected: (movieIndex) {
+        final movie = movies[movieIndex];
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DetailScreen(movie: movie)));
+      },
+      onMovieDeleted: (movie) {
+        notifier.remove(movie: movie);
+      },
     );
   }
 
@@ -110,19 +116,3 @@ class MySearchDelegate extends SearchDelegate {
     );
   }
 }
-
-//  AppBar(
-//           centerTitle: true,
-//           title: const Text('Мой Кинопоиск'),
-//           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-//           actions: <Widget>[
-//             IconButton(
-//                 onPressed: () {},
-//                 icon: const Icon(Icons.search, color: Colors.white))
-//           ],
-//           backgroundColor: Colors.brown,
-//           shape: const RoundedRectangleBorder(
-//               borderRadius: BorderRadius.only(
-//                   bottomLeft: Radius.circular(25),
-//                   bottomRight: Radius.circular(25))),
-//         ),

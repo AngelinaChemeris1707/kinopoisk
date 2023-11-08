@@ -2,7 +2,6 @@ import 'package:dropdownfield2/dropdownfield2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kinopoisk_angelina/state/movie.dart';
-import 'package:kinopoisk_angelina/widgets/movie_list_item.dart';
 import '../state/movies_notifier.dart';
 
 class DetailScreen extends ConsumerStatefulWidget {
@@ -28,9 +27,19 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     "Япония"
   ];
 
-  final Movie resultMovie = Movie(name: "", year: "", country: "");
+  Movie resultMovie = Movie(name: "", year: "", country: "");
 
   bool get isCreatingNewMovie => widget.movie == null;
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isCreatingNewMovie) {
+      final movie = widget.movie!;
+      resultMovie =
+          Movie(name: movie.name, year: movie.year, country: movie.country);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text('О фильме ${widget.movie?.name}'),
+          title: const Text('О фильме'),
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
           actions: <Widget>[
             IconButton(
@@ -52,6 +61,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                   // Редактируем текущий фильм
                   notifier.replace(
                       oldMovie: widget.movie!, newMovie: resultMovie);
+                  Navigator.of(context).pop();
                 },
                 icon: const Icon(Icons.check, color: Colors.white))
           ],
@@ -64,6 +74,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: TextEditingController(text: widget.movie?.name),
                     onChanged: (name) {
                       resultMovie.name = name;
                     },
@@ -80,7 +91,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             ),
             const SizedBox(height: 15),
             DropDownField(
+              controller: TextEditingController(text: widget.movie?.country),
               hintText: "Выберите страну создания фильма",
+              textStyle: const TextStyle(fontSize: 10),
               enabled: true,
               itemsVisibleInDropdown: 9,
               items: countries,
@@ -90,7 +103,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             ),
             const SizedBox(height: 15),
             DropDownField(
+              controller: TextEditingController(text: widget.movie?.year),
               hintText: "Выберите год создания фильма",
+              textStyle: const TextStyle(fontSize: 10),
               enabled: true,
               itemsVisibleInDropdown: 5,
               items: years,
@@ -102,8 +117,5 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
         ),
       ),
     );
-    // floatingActionButton:
-    // FloatingActionButton.extended(
-    //     onPressed: () {}, label: const Text("Редактировать"));
   }
 }

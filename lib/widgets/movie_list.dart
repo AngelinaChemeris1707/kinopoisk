@@ -5,8 +5,13 @@ import '../state/movie.dart';
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
   final Function(int) onMovieSelected;
+  final Function(Movie) onMovieDeleted;
+
   const MovieList(
-      {super.key, required this.movies, required this.onMovieSelected});
+      {super.key,
+      required this.movies,
+      required this.onMovieSelected,
+      required this.onMovieDeleted});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,11 @@ class MovieList extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           final movie = movies[index];
           return Dismissible(
+              confirmDismiss: (direction) async {
+                onMovieDeleted(movie);
+                return true;
+              },
+              direction: DismissDirection.endToStart,
               background: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 80,
