@@ -1,42 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kinopoisk_angelina/screens/detail_screen.dart';
 import 'package:kinopoisk_angelina/screens/main_screen.dart';
-import 'package:objectbox/objectbox.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'data/object_box.dart';
 
-//part 'main.g.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  objectbox = await ObjectBox.create();
 
-// We create a "provider", which will store a value (here "Hello world").
-// By using a provider, this allows us to mock/override the value exposed.
-// @riverpod
-// class HelloWorldNotifier extends _$HelloWorldNotifier {
-//   @override
-//   Future<List<int>> build() async {
-//     return <int>[];
-//   }
-// }
-
-void main() {
-  // runApp(widget(child: Icon(Icons.abc_rounded)));
   runApp(
-    // For widgets to be able to read providers, we need to wrap the entire
-    // application in a "ProviderScope" widget.
-    // This is where the state of our providers will be stored.
-    ProviderScope(
+    const ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
-// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final String value = ref.watch(helloWorldProvider);
-
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

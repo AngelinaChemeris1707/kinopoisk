@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'movie_list_item.dart';
-import '../state/movie.dart';
+import '../data/movie.dart';
 
 class MovieList extends StatelessWidget {
   final List<Movie> movies;

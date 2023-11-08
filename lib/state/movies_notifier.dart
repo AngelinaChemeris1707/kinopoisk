@@ -1,23 +1,26 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'movie.dart';
+import '../data/movie.dart';
+import '../data/object_box.dart';
+import '../objectbox.g.dart';
 
 part 'movies_notifier.g.dart';
 
 @riverpod
 class MoviesNotifier extends _$MoviesNotifier {
+  late final _box = objectbox.store.box<Movie>();
+
   List<Movie> get movies => () {
-        //название геттера - это поле, которое он возвращает?
         if (_query == "") {
-          return _movies;
+          return _box.getAll();
         } else {
-          return _movies
-              .where((movie) =>
-                  movie.name.toLowerCase().contains(_query.toLowerCase()))
-              .toList();
+          final query =
+              _box.query(Movie_.name.contains(_query.toLowerCase())).build();
+          final results = query.find();
+          query.close();
+          return results;
         }
       }();
 
-  final List<Movie> _movies = [];
   String _query = "";
 
   @override
@@ -26,30 +29,23 @@ class MoviesNotifier extends _$MoviesNotifier {
   }
 
   void add({required Movie movie}) {
-    _movies.add(movie);
-    ref.notifyListeners();
+    _box.put(movie);
+    ref.invalidateSelf();
   }
 
   void updateQuery(String query) {
     _query = query;
-    ref.notifyListeners();
+    ref.invalidateSelf();
   }
 
   void remove({required Movie movie}) {
-    final movieIndex = _movies.indexOf(movie);
-    if (movieIndex == -1) {
-      return;
-    }
-    _movies.removeAt(movieIndex);
-    ref.notifyListeners();
+    _box.remove(movie.id);
+    ref.invalidateSelf();
   }
 
   void replace({required Movie oldMovie, required Movie newMovie}) {
-    final index = _movies.indexOf(oldMovie);
-    if (index == -1) {
-      return;
-    }
-    _movies[index] = newMovie;
-    ref.notifyListeners();
+    _box.remove(oldMovie.id);
+    _box.put(newMovie);
+    ref.invalidateSelf();
   }
 }

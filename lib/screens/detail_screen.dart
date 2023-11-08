@@ -1,7 +1,7 @@
 import 'package:dropdownfield2/dropdownfield2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kinopoisk_angelina/state/movie.dart';
+import 'package:kinopoisk_angelina/data/movie.dart';
 import '../state/movies_notifier.dart';
 
 class DetailScreen extends ConsumerStatefulWidget {

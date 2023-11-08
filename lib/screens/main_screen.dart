@@ -14,8 +14,7 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final movies = ref.watch(
-        moviesNotifierProvider); //Тут мы получаем список фильмов. Состояние - это и есть список фильмов.
+    final movies = ref.watch(moviesNotifierProvider);
     final notifier = ref.read(moviesNotifierProvider.notifier); //
 
     return Scaffold(
@@ -80,6 +79,9 @@ class MySearchDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
         onPressed: () {
+          Future(() {
+            notifier.updateQuery("");
+          });
           close(context, null);
         },
         icon: const Icon(Icons.arrow_back));
